@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieViewerV1/MovieCell.swift"
+            timestampString = "474766904.692724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "MovieCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieViewerV1.MovieCell.overviewLabel.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
+                  moduleName = "MovieViewerV1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/scorpio/Documents/XcodeProjects/MoviesApp/MovieViewerV1/MovieCell.swift"
+                  timestampString = "474780771.973809"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieViewerV1.MovieCell.overviewLabel.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UILabel&gt;"
+                  moduleName = "MovieViewerV1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/scorpio/Documents/XcodeProjects/MoviesApp/MovieViewerV1/MovieCell.swift"
+                  timestampString = "474780771.973962"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieViewerV1.MovieCell.init (MovieViewerV1.MovieCell.Type)(style : __C.UITableViewCellStyle, reuseIdentifier : Swift.Optional&lt;Swift.String&gt;) -&gt; MovieViewerV1.MovieCell"
+                  moduleName = "MovieViewerV1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/scorpio/Documents/XcodeProjects/MoviesApp/MovieViewerV1/MovieCell.swift"
+                  timestampString = "474780771.974103"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "149">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieViewerV1.MovieCell.init (MovieViewerV1.MovieCell.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MovieViewerV1.MovieCell&gt;"
+                  moduleName = "MovieViewerV1"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/scorpio/Documents/XcodeProjects/MoviesApp/MovieViewerV1/MovieCell.swift"
+                  timestampString = "474780771.974241"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
