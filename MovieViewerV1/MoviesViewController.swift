@@ -10,8 +10,6 @@
 import UIKit
 import AFNetworking
 
-import MBProgressHUD
-
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -20,10 +18,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
-    
-    
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +30,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         
         // Do any additional setup after loading the view.
-        //Load State feature add delay of 2 secs
-        delay(2.0, closure: {MBProgressHUD.showHUDAddedTo(self.view, animated: true)})
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
@@ -48,29 +40,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegateQueue:NSOperationQueue.mainQueue()
         )
         
-        
-        
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             print ("response: \(responseDictionary)")
-                            // After done loading 
-                            // Hide HUD once network request comes back (must be done on main UI thread)
-                            // delay 2 secs
                             
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData()
                             
-                            self.delay(2.0, closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
-                            
-                            
                     }
                 }
-            
         });
-        
         task.resume()
     }
 
@@ -126,14 +108,25 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let movie = movies![indexPath!.item]
+        let detailViewController = segue.destinationViewController as! DetailViewController
+        detailViewController.movies = movie
+        
+        print("prepare for seque called ")
+        
+        
+        
     }
-    */
+    
 
 }
