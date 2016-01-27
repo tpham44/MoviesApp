@@ -9,14 +9,17 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
-
+      // MoviesViewcontroller contains 3 protocols
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+ 
+    @IBOutlet weak var tableView: UITableView!
+  
     
     var refreshControl: UIRefreshControl!
 
-    @IBOutlet weak var tableView: UITableView!
-    
     var movies: [NSDictionary]?
     
     override func viewDidLoad() {
@@ -39,7 +42,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegate:nil,
             delegateQueue:NSOperationQueue.mainQueue()
         )
-        
+        //User sees a loading state while waiting for the movies API (you can use any 3rd party library available to do this).
+        // Display HUD right before the request is made
+        self.delay(4.0, closure: {MBProgressHUD.showHUDAddedTo(self.view, animated: true)})
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
@@ -49,6 +54,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData()
+                            // Hide HUD once the network request comes back (must be done on main UI thread)
+                            self.delay(4.0, closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
+                            //onRefresh()
                             
                     }
                 }
@@ -72,21 +80,25 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+        //let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell -- ORIGINAL FROM WEEK 1
         
+        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell") as! MovieCell
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
-        let posterPath = movie["poster_path"] as! String
+        cell.titleLabel.text = title
+        cell.overviewLabel.text = overview
         
         let baseUrl = "https://image.tmdb.org/t/p/w342"
         
-        let imageUrl = NSURL(string: baseUrl + posterPath)
-        
-        cell.posterView.setImageWithURL(imageUrl!)
-        
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
+        // the Statement below saying that if movie["poster_path"] as? String =is= nill then do nothing but return the cells only otherwise it will pass movie poster_path value into posterPath variable
+        if  let posterPath = movie["poster_path"] as? String {
+        let posterUrl = NSURL(string: baseUrl + posterPath)
+        cell.posterView.setImageWithURL(posterUrl!)
+        }
+        //let imageUrl = NSURL(string: baseUrl + posterPath) -- week1 why change imageUrl to PosterPathURL
+        //cell.posterView.setImageWithURL(imageUrl!) -- week1 was using imageUrl
+       
        
         
         print("row \(indexPath.row)")
