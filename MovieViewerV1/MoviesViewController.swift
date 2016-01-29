@@ -11,6 +11,7 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
+
       // MoviesViewcontroller contains 3 protocols
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -18,9 +19,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
   
     
+    
     var refreshControl: UIRefreshControl!
 
     var movies: [NSDictionary]?
+    
+    var endpoint: String! // endpoint has a type string
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view.
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string:"https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
         let session = NSURLSession(
             configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -57,6 +63,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             // Hide HUD once the network request comes back (must be done on main UI thread)
                             self.delay(4.0, closure: {MBProgressHUD.hideHUDForView(self.view, animated: true)})
                             //onRefresh()
+                     
+                            
+                            
                             
                     }
                 }
@@ -105,6 +114,39 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
+//    func networkRequest(){
+//    
+//        // Network request endpoint.
+//        
+//        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+//        let url = NSURL(string:"https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
+//        let request = NSURLRequest(URL: url!)
+//        let session = NSURLSession(
+//            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+//            delegate:nil,
+//            delegateQueue:NSOperationQueue.mainQueue()
+//        )
+//        
+//        let task: NSURLSessionDataTask = session.dataTaskWithRequest(request, completionHandler: { (dataOrNil, response, error) in
+//        
+//            if let data = dataOrNil {
+//                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary {
+//            
+//                        self.movies = responseDictionary["results"] as? [NSDictionary]
+//                        print(self.movies![1]["title"])
+//                        self.tableView.reloadData()
+//                    
+//                        self.refreshControl.endRefreshing()
+//                }
+//            }else{
+//                print("There was a network error")
+//            }
+//            
+//        });
+//        task.resume()
+//    
+//    }
+    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
@@ -132,7 +174,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let indexPath = tableView.indexPathForCell(cell)
         let movie = movies![indexPath!.item]
         let detailViewController = segue.destinationViewController as! DetailViewController
-        detailViewController.movies = movie
+        detailViewController.movie = movie
         
         print("prepare for seque called ")
         

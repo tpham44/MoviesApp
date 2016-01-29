@@ -11,40 +11,38 @@ import UIKit
 class DetailViewController: UIViewController {
 
     
-    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var infoView: UIView! //inforView is part extention of scrollview
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var posterimageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
-    var movies: NSDictionary?
+    var movie: NSDictionary! //store dictionary to movie variable
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
-        let title = movies!["title"] as! String
-        let overview = movies!["overview"] as! String
+        
+        //Casting the text string title
+        let title = movie["title"] as? String
         titleLabel.text = title
+        //Casting text string overview
+        let overview = movie["overview"] as? String
         overviewLabel.text = overview
         
+        overviewLabel.sizeToFit()  //Sizing Overview label text to fit in infoview
+        
         let baseUrl = "https://image.tmdb.org/t/p/w342"
-        if  let posterPath = movies!["poster_path"] as? String {
+        if  let posterPath = movie["poster_path"] as? String {
             let posterUrl = NSURL(string: baseUrl + posterPath)
             posterimageView.setImageWithURL(posterUrl!)
         }
         
         
         
-        
-        //let posterPath = movies!["poster_path"] as! String
-        
-  
-        
-        //let imageUrl = NSURL(string: baseUrl + posterPath)
-        
-        //posterimageView.setImageWithURL(imageUrl!)
+       
         
         
 
