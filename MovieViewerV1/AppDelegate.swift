@@ -18,33 +18,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow (frame: UIScreen.mainScreen().bounds)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)  // Main correlates to MainsToryBoard
+        let storyboard = UIStoryboard(name: "Main", bundle:  nil)
         
         let nowPlayingNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
         let nowPlayingViewController = nowPlayingNavigationController.topViewController as! MoviesViewController
         nowPlayingViewController.endpoint = "now_playing"
-        
-        nowPlayingNavigationController.tabBarItem.title  = "Now Playing"
-        nowPlayingNavigationController.tabBarItem.image = UIImage(named:"nowPlaying")
+        nowPlayingNavigationController.tabBarItem.title  = "now_playing"
+        nowPlayingNavigationController.tabBarItem.image = UIImage(named:"nowPlaying")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
         
         
         let topRatedNavigationController = storyboard.instantiateViewControllerWithIdentifier("MoviesNavigationController") as! UINavigationController
         let topRatedViewController = topRatedNavigationController.topViewController as! MoviesViewController
         topRatedViewController.endpoint = "top_rated"
+        topRatedNavigationController.tabBarItem.title = "Top_Rated"
+        topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
-        let tabBarController = UITabBarController() // Creating TabBarController
+        let tabBarController = UITabBarController()
         tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController] // reference tableBarController
-        
-        topRatedNavigationController.tabBarItem.title = "Top Rated"
-        topRatedNavigationController.tabBarItem.image = UIImage(named: "topRated")
-        UIImage(named: "topRated")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-      
-        
-        
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-       
         
         return true
     }
